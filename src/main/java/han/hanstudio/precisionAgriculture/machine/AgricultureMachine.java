@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 /** Base class for all agriculture machines. */
 public abstract class AgricultureMachine {
     protected final BlockPos pos;
-    protected final int range;
+    protected int range;
 
     protected AgricultureMachine(BlockPos pos, int range) {
         this.pos = pos;
@@ -21,9 +21,13 @@ public abstract class AgricultureMachine {
         SoilManager manager = SoilManager.get(world);
         for (int x = -range; x <= range; x++) {
             for (int z = -range; z <= range; z++) {
-                BlockPos target = pos.add(x, -1, z);
-                SoilData soil = manager.get(target);
-                if (soil != null) consumer.accept(target, soil);
+                for (int dy = 1; dy <= 3; dy++) {
+                    BlockPos target = pos.add(x, -dy, z);
+                    if (world.getBlockState(target).getBlock() instanceof net.minecraft.block.FarmlandBlock) {
+                        consumer.accept(target, manager.getOrCreate(target));
+                        break;
+                    }
+                }
             }
         }
     }

@@ -31,5 +31,8 @@
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "jade:plugin_fabric": "han.hanstudio.precisionAgriculture.jade.PrecisionAgricultureJadeClientPlugin"
   }
 }

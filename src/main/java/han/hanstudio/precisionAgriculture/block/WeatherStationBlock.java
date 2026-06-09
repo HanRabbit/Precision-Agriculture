@@ -39,7 +39,7 @@ public class WeatherStationBlock extends Block implements BlockEntityProvider {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient()) return ActionResult.SUCCESS;
-        if (!(player instanceof ServerPlayerEntity sp)) return ActionResult.PASS;
+        if (!(player instanceof ServerPlayerEntity sp)) return ActionResult.SUCCESS;
         if (world.getBlockEntity(pos) instanceof WeatherStationBlockEntity be) {
             WeatherStation ws = be.getStation();
             if (ws == null) {

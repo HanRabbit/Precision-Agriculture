@@ -9,4 +9,7 @@ public class ModBlockEntities {
     public static BlockEntityType<FertilizerBlockEntity> FERTILIZER;
     public static BlockEntityType<WeatherStationBlockEntity> WEATHER_STATION;
     public static BlockEntityType<AgriTerminalBlockEntity> AGRI_TERMINAL;
+    public static BlockEntityType<HarvesterBlockEntity> HARVESTER;
+    public static BlockEntityType<PlanterBlockEntity> PLANTER;
+    public static BlockEntityType<han.hanstudio.precisionAgriculture.block.entity.PesticideSprayerBlockEntity> PESTICIDE_SPRAYER;
 }

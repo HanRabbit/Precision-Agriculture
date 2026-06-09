@@ -13,4 +13,9 @@ public enum PestType {
         this.displayName = displayName;
         this.isDisease = isDisease;
     }
+
+    public static PestType fromName(String name) {
+        for (PestType t : values()) if (t.name().equals(name)) return t;
+        return FUNGAL_DISEASE;
+    }
 }

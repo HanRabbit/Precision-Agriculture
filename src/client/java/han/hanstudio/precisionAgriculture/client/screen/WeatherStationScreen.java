@@ -3,46 +3,56 @@ package han.hanstudio.precisionAgriculture.client.screen;
 import han.hanstudio.precisionAgriculture.network.OpenWeatherStationPayload;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 
 public class WeatherStationScreen extends Screen {
 
+    private static final int W = 200, H = 120;
+    private static final int TXT = 0xFF404040, WHITE = 0xFFFFFFFF;
     private final OpenWeatherStationPayload data;
+    private int x, y;
 
     public WeatherStationScreen(OpenWeatherStationPayload data) {
         super(Text.translatable("screen.precision-agriculture.weather_station"));
         this.data = data;
     }
 
+    @Override protected void init() { x = (width - W) / 2; y = (height - H) / 2; }
+
     @Override
     public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
+        ctx.fill(0, 0, width, height, 0xA0000000);
+        ctx.fill(x, y, x + W, y + H, 0xFFC6C6C6);
+        ctx.fill(x + 1, y + 1, x + W - 1, y + 17, 0xFF555599);
+        ctx.fill(x, y, x + W, y + 1, 0xFF000000);
+        ctx.fill(x, y + H - 1, x + W, y + H, 0xFF000000);
+        ctx.fill(x, y, x + 1, y + H, 0xFF000000);
+        ctx.fill(x + W - 1, y, x + W, y + H, 0xFF000000);
+
+        ctx.drawCenteredTextWithShadow(textRenderer, title, x + W / 2, y + 5, WHITE);
+
+        int lx = x + 8, ly = y + 22;
+        int tempColor = data.temperature() > 35 ? 0xFFCC2200 : data.temperature() < 5 ? 0xFF2266AA : 0xFF884400;
+        ctx.drawTextWithShadow(textRenderer, Text.literal(String.format("环境温度: %.1f °C", data.temperature())), lx, ly, tempColor); ly += 14;
+
+        int filled = data.lightLevel() * 10 / 15;
+        ctx.drawTextWithShadow(textRenderer,
+                Text.literal("光照强度: [" + "█".repeat(filled) + "░".repeat(10 - filled) + "] " + data.lightLevel() + "/15"),
+                lx, ly, TXT); ly += 14;
+
+        ctx.drawTextWithShadow(textRenderer,
+                Text.literal("降雨状态: " + (data.raining() ? "是" : "否")),
+                lx, ly, data.raining() ? 0xFF2255AA : 0xFF228822);
+
         super.render(ctx, mouseX, mouseY, delta);
-        int cx = width / 2;
-        int y = height / 2 - 40;
-
-        ctx.drawCenteredTextWithShadow(textRenderer, title, cx, y, 0xAADDFF);
-        y += 24;
-
-        ctx.drawCenteredTextWithShadow(textRenderer,
-                Text.literal(String.format("环境温度: %.1f°C", data.temperature())), cx, y,
-                data.temperature() > 35 ? 0xFF6644 : data.temperature() < 5 ? 0x88CCFF : 0xFFDD88);
-        y += 14;
-
-        ctx.drawCenteredTextWithShadow(textRenderer,
-                Text.literal("光照强度: " + lightBar(data.lightLevel())), cx, y, 0xFFFF88);
-        y += 14;
-
-        ctx.drawCenteredTextWithShadow(textRenderer,
-                Text.literal("降雨: " + (data.raining() ? "§b是" : "§a否")), cx, y, 0xCCCCFF);
-
-        ctx.drawCenteredTextWithShadow(textRenderer,
-                Text.literal("§7[ESC 关闭]"), cx, height / 2 + 50, 0x888888);
     }
 
-    private String lightBar(int level) {
-        int filled = level * 10 / 15;
-        return "[" + "█".repeat(filled) + "░".repeat(10 - filled) + "] " + level + "/15";
+    @Override public boolean keyPressed(KeyInput key) {
+        if (client != null && client.options.inventoryKey.matchesKey(key)) { close(); return true; }
+        return super.keyPressed(key);
     }
-
+    @Override public void renderBackground(DrawContext ctx, int mouseX, int mouseY, float delta) {}
     @Override public boolean shouldPause() { return false; }
+    @Override public boolean shouldCloseOnEsc() { return true; }
 }

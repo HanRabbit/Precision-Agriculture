@@ -10,6 +10,7 @@ public class SoilData {
     private float temperature;
     private float health;
     private String pestType;
+    private int bareTickCount;
 
     public SoilData() {
         this.moisture = 50f;
@@ -55,4 +56,6 @@ public class SoilData {
     public void setTemperature(float v) { temperature = v; }
     public void setHealth(float v) { health = Math.max(0, Math.min(100, v)); }
     public void setPestType(String t) { pestType = t; }
+    public int getBareTickCount() { return bareTickCount; }
+    public void setBareTickCount(int v) { bareTickCount = v; }
 }

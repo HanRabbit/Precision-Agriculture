@@ -4,6 +4,7 @@
   "package": "han.hanstudio.precisionAgriculture.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "FarmlandBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

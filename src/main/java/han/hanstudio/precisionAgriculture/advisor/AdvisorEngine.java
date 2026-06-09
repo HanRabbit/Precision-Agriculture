@@ -1,35 +1,23 @@
 package han.hanstudio.precisionAgriculture.advisor;
 
-import han.hanstudio.precisionAgriculture.soil.SoilData;
-import han.hanstudio.precisionAgriculture.soil.SoilManager;
+import han.hanstudio.precisionAgriculture.farm.FarmStats;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AdvisorEngine {
 
-    public static List<String> analyze(ServerWorld world) {
-        SoilManager manager = SoilManager.get(world);
-        Map<BlockPos, SoilData> all = manager.getAll();
+    public static List<String> analyze(ServerWorld world, BlockPos terminalPos) {
+        FarmStats stats = FarmStats.compute(world, terminalPos);
         List<String> advice = new ArrayList<>();
 
-        if (all.isEmpty()) { advice.add("暂无农田数据。"); return advice; }
+        if (stats.totalPlots == 0) { advice.add("暂无农田数据。"); return advice; }
 
-        double totalMoisture = 0, totalFertility = 0, totalHealth = 0;
-        int pestCount = 0;
-        for (SoilData soil : all.values()) {
-            totalMoisture += soil.getMoisture();
-            totalFertility += soil.getFertility();
-            totalHealth += soil.getHealth();
-            if (soil.getPestType() != null) pestCount++;
-        }
-        int count = all.size();
-        float avgMoisture = (float) (totalMoisture / count);
-        float avgFertility = (float) (totalFertility / count);
-        float pestRate = (float) pestCount / count * 100;
+        float avgMoisture = stats.avgMoisture;
+        float avgFertility = stats.avgFertility;
+        float pestRate = stats.pestRate;
 
         if (avgMoisture < 40f) advice.add("平均湿度偏低(" + f(avgMoisture) + "%)，建议开启灌溉系统。");
         if (avgFertility < 30f) advice.add("平均肥力不足(" + f(avgFertility) + "%)，建议自动施肥机补充肥力。");

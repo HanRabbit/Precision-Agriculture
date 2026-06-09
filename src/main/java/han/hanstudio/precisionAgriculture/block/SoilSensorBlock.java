@@ -27,9 +27,13 @@ public class SoilSensorBlock extends Block implements BlockEntityProvider {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient()) return ActionResult.SUCCESS;
-        if (!(player instanceof ServerPlayerEntity sp)) return ActionResult.PASS;
+        if (!(player instanceof ServerPlayerEntity sp)) return ActionResult.SUCCESS;
         if (world.getBlockEntity(pos) instanceof SoilSensorBlockEntity be) {
             SoilData soil = be.getSoilBelow();
+            if (soil == null) {
+                sp.sendMessage(net.minecraft.text.Text.literal("§e[土壤传感器] 请将传感器放置在耕地旁边或下方。"), false);
+                return ActionResult.SUCCESS;
+            }
             ServerPlayNetworking.send(sp, new OpenSoilSensorPayload(
                     pos.down(), soil.getMoisture(), soil.getFertility(),
                     soil.getTemperature(), soil.getHealth(), soil.getPestType()));

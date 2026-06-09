@@ -1,15 +1,29 @@
 {
   "stats": {
-    "minecraft:custom": {
-      "minecraft:time_since_rest": 577,
-      "minecraft:walk_one_cm": 452,
-      "minecraft:total_world_time": 605,
-      "minecraft:leave_game": 1,
-      "minecraft:play_time": 577,
-      "minecraft:time_since_death": 577
-    },
     "minecraft:used": {
-      "precision-agriculture:soil_sensor": 3
+      "precision-agriculture:planter": 2,
+      "precision-agriculture:harvester": 3,
+      "minecraft:farmland": 14,
+      "precision-agriculture:soil_sensor": 3,
+      "precision-agriculture:fertilizer": 5,
+      "minecraft:wheat_seeds": 12
+    },
+    "minecraft:picked_up": {
+      "minecraft:carrot": 60,
+      "minecraft:wheat_seeds": 16,
+      "minecraft:wheat": 10
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 1377,
+      "minecraft:time_since_rest": 4116,
+      "minecraft:walk_one_cm": 12285,
+      "minecraft:total_world_time": 4166,
+      "minecraft:leave_game": 2,
+      "minecraft:fly_one_cm": 5527,
+      "minecraft:sneak_time": 31,
+      "minecraft:play_time": 4116,
+      "minecraft:jump": 45,
+      "minecraft:time_since_death": 4116
     }
   },
   "DataVersion": 4671
