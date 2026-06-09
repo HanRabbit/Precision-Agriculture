@@ -1,0 +1,15 @@
+{
+  "stats": {
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 314,
+      "minecraft:walk_one_cm": 151,
+      "minecraft:total_world_time": 314,
+      "minecraft:play_time": 314,
+      "minecraft:time_since_death": 314
+    },
+    "minecraft:used": {
+      "precision-agriculture:weather_station": 1
+    }
+  },
+  "DataVersion": 4671
+}

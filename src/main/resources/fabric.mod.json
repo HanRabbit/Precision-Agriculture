@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "precision-agriculture",
+  "version": "${version}",
+  "name": "Precision Agriculture",
+  "description": "精妙农业提供了一系列科学农业种植的现实参数让玩家可以在游戏中学习种植知识",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/precision-agriculture/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "han.hanstudio.precisionAgriculture.client.PrecisionAgricultureDataGenerator"
+    ],
+    "client": [
+      "han.hanstudio.precisionAgriculture.client.PrecisionAgricultureClient"
+    ],
+    "main": [
+      "han.hanstudio.precisionAgriculture.PrecisionAgriculture"
+    ]
+  },
+  "mixins": [
+    "precision-agriculture.mixins.json",
+    {
+      "config": "precision-agriculture.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

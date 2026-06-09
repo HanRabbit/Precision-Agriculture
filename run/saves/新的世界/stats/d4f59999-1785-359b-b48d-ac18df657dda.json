@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "minecraft:carrot": 3,
+      "precision-agriculture:insecticide": 4,
+      "precision-agriculture:weather_station": 1,
+      "precision-agriculture:fungicide": 5,
+      "precision-agriculture:fertilizer": 9,
+      "precision-agriculture:fertilizer_machine": 8,
+      "precision-agriculture:agri_terminal": 1
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 2183,
+      "minecraft:walk_one_cm": 1470,
+      "minecraft:total_world_time": 2183,
+      "minecraft:leave_game": 1,
+      "minecraft:play_time": 2183,
+      "minecraft:jump": 7,
+      "minecraft:time_since_death": 2183
+    }
+  },
+  "DataVersion": 4671
+}

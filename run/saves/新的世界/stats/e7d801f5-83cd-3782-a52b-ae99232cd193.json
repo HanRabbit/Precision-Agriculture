@@ -1,0 +1,19 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "minecraft:water_bucket": 1,
+      "precision-agriculture:soil_sensor": 1,
+      "minecraft:netherite_hoe": 17,
+      "precision-agriculture:irrigator": 1
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 1401,
+      "minecraft:walk_one_cm": 1721,
+      "minecraft:total_world_time": 2246,
+      "minecraft:leave_game": 2,
+      "minecraft:play_time": 1401,
+      "minecraft:time_since_death": 1401
+    }
+  },
+  "DataVersion": 4671
+}

@@ -1,0 +1,13 @@
+{
+  "block.precision-agriculture.soil_sensor": "Soil Sensor",
+  "block.precision-agriculture.irrigator": "Auto Irrigator",
+  "block.precision-agriculture.fertilizer_machine": "Fertilizer Machine",
+  "block.precision-agriculture.weather_station": "Weather Station",
+  "block.precision-agriculture.agri_terminal": "Agriculture Terminal",
+  "item.precision-agriculture.fertilizer": "Fertilizer",
+  "item.precision-agriculture.fungicide": "Fungicide",
+  "item.precision-agriculture.insecticide": "Insecticide",
+  "screen.precision-agriculture.soil_sensor": "Soil Sensor",
+  "screen.precision-agriculture.weather_station": "Weather Station",
+  "screen.precision-agriculture.agri_terminal": "Agriculture Data Terminal"
+}

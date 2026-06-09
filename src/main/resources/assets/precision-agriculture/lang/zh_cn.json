@@ -1,0 +1,13 @@
+{
+  "block.precision-agriculture.soil_sensor": "土壤传感器",
+  "block.precision-agriculture.irrigator": "自动灌溉器",
+  "block.precision-agriculture.fertilizer_machine": "自动施肥机",
+  "block.precision-agriculture.weather_station": "气象站",
+  "block.precision-agriculture.agri_terminal": "农业终端",
+  "item.precision-agriculture.fertilizer": "化肥",
+  "item.precision-agriculture.fungicide": "杀菌剂",
+  "item.precision-agriculture.insecticide": "杀虫剂",
+  "screen.precision-agriculture.soil_sensor": "土壤传感器",
+  "screen.precision-agriculture.weather_station": "气象站",
+  "screen.precision-agriculture.agri_terminal": "农业数据终端"
+}
