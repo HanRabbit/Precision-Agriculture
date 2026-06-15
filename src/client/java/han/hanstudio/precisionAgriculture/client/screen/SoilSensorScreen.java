@@ -40,25 +40,26 @@ public class SoilSensorScreen extends Screen {
     }
 
     private void drawPanel(DrawContext ctx, int px, int py, int pw, int ph, int titleColor) {
-        ctx.fill(px, py, px + pw, py + ph, 0xFFC6C6C6);
-        ctx.fill(px + 1, py + 1, px + pw - 1, py + 17, titleColor);
-        ctx.fill(px, py, px + pw, py + 1, 0xFF000000);
-        ctx.fill(px, py + ph - 1, px + pw, py + ph, 0xFF000000);
-        ctx.fill(px, py, px + 1, py + ph, 0xFF000000);
-        ctx.fill(px + pw - 1, py, px + pw, py + ph, 0xFF000000);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTexturedPanel(ctx, px, py, pw, ph);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTitleBar(ctx, px, py, pw, titleColor);
     }
 
     private void drawBar(DrawContext ctx, int lx, int ly, String label, float value, int color) {
-        int barX = lx + 50, barW = 100, barH = 8;
-        ctx.fill(barX, ly, barX + barW, ly + barH, 0xFF333333);
-        ctx.fill(barX, ly, barX + (int)(value / 100f * barW), ly + barH, 0xFF000000 | color);
-        ctx.drawTextWithShadow(textRenderer, Text.literal(label), lx, ly, TXT);
-        ctx.drawTextWithShadow(textRenderer, Text.literal(String.format("%.0f%%", value)), barX + barW + 3, ly, TXT);
+        int barX = lx + 50;
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawLabeledBar(
+            ctx, lx, ly, label, value, color, textRenderer
+        );
     }
 
-    private int moistureColor(float v) { return v < 30 ? 0xCC2222 : v < 60 ? 0xCC8800 : 0x2288CC; }
-    private int fertilityColor(float v) { return v < 30 ? 0xCC2222 : v < 50 ? 0xCC8800 : 0x44AA22; }
-    private int healthColor(float v)    { return v < 30 ? 0xCC2222 : v < 60 ? 0xCC8800 : 0x22AA22; }
+    private int moistureColor(float v) {
+        return han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.moistureColor(v);
+    }
+    private int fertilityColor(float v) {
+        return han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.fertilityColor(v);
+    }
+    private int healthColor(float v) {
+        return han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.healthColor(v);
+    }
 
     @Override public boolean keyPressed(KeyInput key) {
         if (client != null && client.options.inventoryKey.matchesKey(key)) { close(); return true; }

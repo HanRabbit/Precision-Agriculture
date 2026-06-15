@@ -33,12 +33,9 @@ public class AgriTerminalScreen extends Screen {
     public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
         int totalH = H + data.advice().size() * 11;
         ctx.fill(0, 0, width, height, 0xA0000000);
-        ctx.fill(x, y, x + W, y + totalH, 0xFFC6C6C6);
-        ctx.fill(x + 1, y + 1, x + W - 1, y + 17, 0xFF336633);
-        ctx.fill(x, y, x + W, y + 1, 0xFF000000);
-        ctx.fill(x, y + totalH - 1, x + W, y + totalH, 0xFF000000);
-        ctx.fill(x, y, x + 1, y + totalH, 0xFF000000);
-        ctx.fill(x + W - 1, y, x + W, y + totalH, 0xFF000000);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTexturedPanel(ctx, x, y, W, totalH);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTitleBar(ctx, x, y, W,
+            han.hanstudio.precisionAgriculture.client.gui.AgriGuiTextures.TITLE_BAR_GREEN);
 
         ctx.drawCenteredTextWithShadow(textRenderer, title, x + W / 2, y + 5, WHITE);
 
@@ -64,11 +61,9 @@ public class AgriTerminalScreen extends Screen {
     }
 
     private void drawBar(DrawContext ctx, int lx, int ly, String label, float value, int color) {
-        int barX = lx + 64, barW = 100, barH = 8;
-        ctx.fill(barX, ly, barX + barW, ly + barH, 0xFF333333);
-        ctx.fill(barX, ly, barX + (int)(value / 100f * barW), ly + barH, 0xFF000000 | color);
-        ctx.drawTextWithShadow(textRenderer, Text.literal(label), lx, ly, TXT);
-        ctx.drawTextWithShadow(textRenderer, Text.literal(String.format("%.0f%%", value)), barX + barW + 3, ly, TXT);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawLabeledBar(
+            ctx, lx, ly, label, value, color, textRenderer
+        );
     }
 
     @Override public boolean keyPressed(KeyInput key) {

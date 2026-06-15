@@ -23,17 +23,14 @@ public class WeatherStationScreen extends Screen {
     @Override
     public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, width, height, 0xA0000000);
-        ctx.fill(x, y, x + W, y + H, 0xFFC6C6C6);
-        ctx.fill(x + 1, y + 1, x + W - 1, y + 17, 0xFF555599);
-        ctx.fill(x, y, x + W, y + 1, 0xFF000000);
-        ctx.fill(x, y + H - 1, x + W, y + H, 0xFF000000);
-        ctx.fill(x, y, x + 1, y + H, 0xFF000000);
-        ctx.fill(x + W - 1, y, x + W, y + H, 0xFF000000);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTexturedPanel(ctx, x, y, W, H);
+        han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.drawTitleBar(ctx, x, y, W,
+            han.hanstudio.precisionAgriculture.client.gui.AgriGuiTextures.TITLE_BAR_BLUE);
 
         ctx.drawCenteredTextWithShadow(textRenderer, title, x + W / 2, y + 5, WHITE);
 
         int lx = x + 8, ly = y + 22;
-        int tempColor = data.temperature() > 35 ? 0xFFCC2200 : data.temperature() < 5 ? 0xFF2266AA : 0xFF884400;
+        int tempColor = han.hanstudio.precisionAgriculture.client.gui.AgriGuiUtils.temperatureColor(data.temperature());
         ctx.drawTextWithShadow(textRenderer, Text.literal(String.format("环境温度: %.1f °C", data.temperature())), lx, ly, tempColor); ly += 14;
 
         int filled = data.lightLevel() * 10 / 15;
