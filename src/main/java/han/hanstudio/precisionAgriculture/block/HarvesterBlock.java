@@ -2,8 +2,6 @@ package han.hanstudio.precisionAgriculture.block;
 
 import han.hanstudio.precisionAgriculture.ModBlockEntities;
 import han.hanstudio.precisionAgriculture.block.entity.HarvesterBlockEntity;
-import han.hanstudio.precisionAgriculture.network.OpenHarvesterPayload;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -12,6 +10,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -30,9 +29,18 @@ public class HarvesterBlock extends Block implements BlockEntityProvider {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient()) return ActionResult.SUCCESS;
         if (!(player instanceof ServerPlayerEntity sp)) return ActionResult.SUCCESS;
-        if (world.getBlockEntity(pos) instanceof HarvesterBlockEntity be)
-            ServerPlayNetworking.send(sp, new OpenHarvesterPayload(pos, be.getRange(), be.getHarvestedLast()));
+        if (world.getBlockEntity(pos) instanceof HarvesterBlockEntity be) {
+            be.openScreen(sp);
+        }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        if (world.getBlockEntity(pos) instanceof HarvesterBlockEntity be) {
+            be.dropContents();
+        }
+        super.onStateReplaced(state, world, pos, moved);
     }
 
     @Override

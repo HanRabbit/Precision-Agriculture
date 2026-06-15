@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -15,11 +16,13 @@ public class Harvester extends AgricultureMachine {
     private static final int TICK_INTERVAL = 40;
     private int tickCount = 0;
     private int harvestedLast = 0;
+    private final SimpleInventory inventory = new SimpleInventory(9);
 
     public Harvester(BlockPos pos, int range) { super(pos, range); }
 
     public void setRange(int range) { this.range = range; }
     public int getHarvestedLast() { return harvestedLast; }
+    public SimpleInventory getInventory() { return inventory; }
 
     @Override
     public void serverTick(ServerWorld world) {
@@ -57,19 +60,37 @@ public class Harvester extends AgricultureMachine {
 
     private void insertOrDrop(ServerWorld world, ItemStack stack) {
         if (stack.isEmpty()) return;
-        Inventory chest = findAdjacentChest(world);
-        if (chest != null) {
-            for (int i = 0; i < chest.size() && !stack.isEmpty(); i++) {
-                ItemStack slot = chest.getStack(i);
-                if (slot.isEmpty()) {
-                    chest.setStack(i, stack.copyAndEmpty());
-                } else if (ItemStack.areItemsAndComponentsEqual(slot, stack) && slot.getCount() < slot.getMaxCount()) {
-                    int transfer = Math.min(stack.getCount(), slot.getMaxCount() - slot.getCount());
-                    slot.increment(transfer);
-                    stack.decrement(transfer);
+
+        // 优先插入内部物品栏
+        for (int i = 0; i < inventory.size() && !stack.isEmpty(); i++) {
+            ItemStack slot = inventory.getStack(i);
+            if (slot.isEmpty()) {
+                inventory.setStack(i, stack.copyAndEmpty());
+            } else if (ItemStack.areItemsAndComponentsEqual(slot, stack) && slot.getCount() < slot.getMaxCount()) {
+                int transfer = Math.min(stack.getCount(), slot.getMaxCount() - slot.getCount());
+                slot.increment(transfer);
+                stack.decrement(transfer);
+            }
+        }
+
+        // 如果内部物品栏满了，尝试相邻箱子
+        if (!stack.isEmpty()) {
+            Inventory chest = findAdjacentChest(world);
+            if (chest != null) {
+                for (int i = 0; i < chest.size() && !stack.isEmpty(); i++) {
+                    ItemStack slot = chest.getStack(i);
+                    if (slot.isEmpty()) {
+                        chest.setStack(i, stack.copyAndEmpty());
+                    } else if (ItemStack.areItemsAndComponentsEqual(slot, stack) && slot.getCount() < slot.getMaxCount()) {
+                        int transfer = Math.min(stack.getCount(), slot.getMaxCount() - slot.getCount());
+                        slot.increment(transfer);
+                        stack.decrement(transfer);
+                    }
                 }
             }
         }
+
+        // 最后才掉落
         if (!stack.isEmpty()) Block.dropStack(world, pos, stack);
     }
 

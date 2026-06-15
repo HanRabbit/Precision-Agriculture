@@ -2,9 +2,13 @@ package han.hanstudio.precisionAgriculture.client;
 
 import han.hanstudio.precisionAgriculture.client.screen.*;
 import han.hanstudio.precisionAgriculture.network.*;
+import han.hanstudio.precisionAgriculture.screen.HarvesterScreenHandler;
+import han.hanstudio.precisionAgriculture.screen.ModScreenHandlers;
+import han.hanstudio.precisionAgriculture.screen.PlanterScreenHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 
@@ -19,6 +23,12 @@ public class PrecisionAgricultureClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // 注册 HandledScreen
+        HandledScreens.register(ModScreenHandlers.HARVESTER, HarvesterHandledScreen::new);
+        HandledScreens.register(ModScreenHandlers.PLANTER, PlanterHandledScreen::new);
+        HandledScreens.register(ModScreenHandlers.FERTILIZER, FertilizerHandledScreen::new);
+        HandledScreens.register(ModScreenHandlers.PESTICIDE_SPRAYER, PesticideSprayerHandledScreen::new);
+
         ClientPlayNetworking.registerGlobalReceiver(OpenSoilSensorPayload.ID,
                 (payload, ctx) -> ctx.client().execute(() ->
                         ctx.client().setScreen(new SoilSensorScreen(payload))));
