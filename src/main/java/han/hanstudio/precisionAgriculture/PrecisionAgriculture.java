@@ -28,6 +28,8 @@ public class PrecisionAgriculture implements ModInitializer {
     public void onInitialize() {
         ModNetworking.registerServerPayloads();
         ModRegistries.register();
+        ModSounds.register();
+        han.hanstudio.precisionAgriculture.screen.ModScreenHandlers.register();
         CropGrowthHandler.register();
         registerSoilTracking();
         registerPestTick();
@@ -52,8 +54,12 @@ public class PrecisionAgriculture implements ModInitializer {
 
     private void registerInfectedCropDropSuppression() {
         PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, entity) -> {
-            if (!world.isClient() && world.getBlockEntity(pos) instanceof han.hanstudio.precisionAgriculture.block.entity.PesticideSprayerBlockEntity be)
-                be.dropContents();
+            if (!world.isClient()) {
+                if (world.getBlockEntity(pos) instanceof han.hanstudio.precisionAgriculture.block.entity.PesticideSprayerBlockEntity be)
+                    be.dropContents();
+                if (world.getBlockEntity(pos) instanceof han.hanstudio.precisionAgriculture.block.entity.FertilizerBlockEntity be)
+                    be.dropContents();
+            }
             if (!(state.getBlock() instanceof CropBlock crop)) return true;
             SoilData soil = SoilManager.get((ServerWorld) world).get(pos.down());
             if (soil == null) return true;

@@ -47,6 +47,10 @@ public class PrecisionAgricultureClient implements ClientModInitializer {
                 (payload, ctx) -> ctx.client().execute(() ->
                         ctx.client().setScreen(new PesticideSprayerScreen(payload))));
 
+        ClientPlayNetworking.registerGlobalReceiver(OpenFertilizerPayload.ID,
+                (payload, ctx) -> ctx.client().execute(() ->
+                        ctx.client().setScreen(new FertilizerScreen(payload))));
+
         ClientPlayNetworking.registerGlobalReceiver(SyncAgriTerminalPayload.ID, (payload, ctx) -> ctx.client().execute(() -> {
             if (ctx.client().currentScreen instanceof AgriTerminalScreen scr && scr.pos().equals(payload.terminalPos()))
                 scr.update(payload.totalPlots(), payload.avgMoisture(), payload.avgFertility(),
@@ -63,6 +67,11 @@ public class PrecisionAgricultureClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(SyncPesticideSprayerPayload.ID, (payload, ctx) -> ctx.client().execute(() -> {
             if (ctx.client().currentScreen instanceof PesticideSprayerScreen scr && scr.pos().equals(payload.pos()))
                 scr.updateStatus(payload.range(), payload.sprayedLast(), payload.slot0(), payload.slot1());
+        }));
+
+        ClientPlayNetworking.registerGlobalReceiver(SyncFertilizerPayload.ID, (payload, ctx) -> ctx.client().execute(() -> {
+            if (ctx.client().currentScreen instanceof FertilizerScreen scr && scr.pos().equals(payload.pos()))
+                scr.updateStatus(payload.range(), payload.fertilizedLast(), payload.slot0());
         }));
 
         ClientPlayNetworking.registerGlobalReceiver(SyncInfectedPayload.ID,

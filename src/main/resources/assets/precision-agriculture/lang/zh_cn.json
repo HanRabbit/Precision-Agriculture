@@ -11,6 +11,7 @@
   "item.precision-agriculture.weather_station": "气象站",
   "item.precision-agriculture.agri_terminal": "农业终端",
   "item.precision-agriculture.fertilizer": "金克拉",
+  "item.precision-agriculture.agri_star": "农业之星",
   "item.precision-agriculture.fungicide": "杀菌剂",
   "item.precision-agriculture.insecticide": "杀虫剂",
   "screen.precision-agriculture.soil_sensor": "土壤传感器",
@@ -18,8 +19,10 @@
   "block.precision-agriculture.harvester": "自动收割机",
   "block.precision-agriculture.planter": "自动播种机",
   "block.precision-agriculture.pesticide_sprayer": "自动农药播撒机",
+  "block.precision-agriculture.ma_baoguo_statue": "马保国雕像",
   "item.precision-agriculture.harvester": "自动收割机",
   "item.precision-agriculture.planter": "自动播种机",
   "item.precision-agriculture.pesticide_sprayer": "自动农药播撒机",
+  "item.precision-agriculture.ma_baoguo_statue": "马保国雕像",
   "screen.precision-agriculture.agri_terminal": "农业数据终端"
 }

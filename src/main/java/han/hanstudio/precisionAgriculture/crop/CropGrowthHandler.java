@@ -1,5 +1,6 @@
 package han.hanstudio.precisionAgriculture.crop;
 
+import han.hanstudio.precisionAgriculture.block.MaBaoguoStatueBlock;
 import han.hanstudio.precisionAgriculture.soil.SoilData;
 import han.hanstudio.precisionAgriculture.soil.SoilManager;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -49,11 +50,15 @@ public class CropGrowthHandler {
             soil.setBareTickCount(0);
             if (soil.getFertility() < FERTILITY_MIN) continue;
 
+            boolean blessed = MaBaoguoStatueBlock.isNearby(world, above, 30);
+            if (blessed) soil.setFertility(100f);
+
             CropBlock crop = (CropBlock) world.getBlockState(above).getBlock();
             Identifier id = Registries.BLOCK.getId(crop);
             Crop cropData = CropRegistry.findByBlockId(id);
             int light = world.getLightLevel(LightType.SKY, above);
             float multiplier = cropData.calcGrowthMultiplier(soil, light);
+            if (blessed) multiplier *= 1.5f;
             if (rng.nextFloat() < multiplier * 0.05f) {
                 crop.applyGrowth(world, above, world.getBlockState(above));
                 soil.setFertility(soil.getFertility() - FERTILITY_PER_GROWTH);

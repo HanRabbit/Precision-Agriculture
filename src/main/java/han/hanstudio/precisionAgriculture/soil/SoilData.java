@@ -23,6 +23,7 @@ public class SoilData {
         moisture = Math.max(0, moisture - 0.05f);
         if (isRaining) moisture = Math.min(100, moisture + 0.3f);
         if (pestType != null) health = Math.max(0, health - 0.1f);
+        else health = Math.min(100, health + 0.05f);
     }
 
     public NbtCompound toNbt() {

@@ -1,5 +1,6 @@
 package han.hanstudio.precisionAgriculture.pest;
 
+import han.hanstudio.precisionAgriculture.block.MaBaoguoStatueBlock;
 import han.hanstudio.precisionAgriculture.soil.SoilData;
 import han.hanstudio.precisionAgriculture.soil.SoilManager;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +20,10 @@ public class PestSystem {
         List<BlockPos> infected = new ArrayList<>();
 
         manager.getAll().forEach((pos, soil) -> {
+            if (MaBaoguoStatueBlock.isNearby(world, pos, 30)) {
+                soil.setPestType(null);
+                return;
+            }
             if (soil.getPestType() != null) {
                 infected.add(pos);
             } else if (RANDOM.nextFloat() < SPAWN_CHANCE) {

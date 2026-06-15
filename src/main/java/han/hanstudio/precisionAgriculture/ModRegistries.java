@@ -33,10 +33,12 @@ public class ModRegistries {
     public static Block HARVESTER_BLOCK;
     public static Block PLANTER_BLOCK;
     public static Block PESTICIDE_SPRAYER_BLOCK;
+    public static Block MA_BAOGUO_STATUE_BLOCK;
 
     public static Item FERTILIZER_ITEM;
     public static Item FUNGICIDE_ITEM;
     public static Item INSECTICIDE_ITEM;
+    public static Item AGRI_STAR_ITEM;
 
     public static void register() {
         SOIL_SENSOR_BLOCK    = block("soil_sensor",       new SoilSensorBlock(settings("soil_sensor", 1f)));
@@ -47,10 +49,12 @@ public class ModRegistries {
         HARVESTER_BLOCK      = block("harvester",          new HarvesterBlock(settings("harvester", 2f)));
         PLANTER_BLOCK        = block("planter",            new PlanterBlock(settings("planter", 2f)));
         PESTICIDE_SPRAYER_BLOCK = block("pesticide_sprayer", new PesticideSprayerBlock(settings("pesticide_sprayer", 2f)));
+        MA_BAOGUO_STATUE_BLOCK  = block("ma_baoguo_statue",  new MaBaoguoStatueBlock(settings("ma_baoguo_statue", 3f)));
 
         FERTILIZER_ITEM  = item("fertilizer",  new FertilizerItem(itemSettings("fertilizer").maxCount(64)));
         FUNGICIDE_ITEM   = item("fungicide",   new PesticideItem(itemSettings("fungicide").maxCount(16), false));
         INSECTICIDE_ITEM = item("insecticide", new PesticideItem(itemSettings("insecticide").maxCount(16), true));
+        AGRI_STAR_ITEM   = item("agri_star",   new Item(itemSettings("agri_star").maxCount(64).rarity(net.minecraft.util.Rarity.COMMON)));
 
         ModBlockEntities.SOIL_SENSOR = Registry.register(Registries.BLOCK_ENTITY_TYPE, id("soil_sensor"),
                 FabricBlockEntityTypeBuilder.create(SoilSensorBlockEntity::new, SOIL_SENSOR_BLOCK).build());
@@ -88,7 +92,9 @@ public class ModRegistries {
                             e.add(HARVESTER_BLOCK);
                             e.add(PLANTER_BLOCK);
                             e.add(PESTICIDE_SPRAYER_BLOCK);
+                            e.add(MA_BAOGUO_STATUE_BLOCK);
                             e.add(FERTILIZER_ITEM);
+                            e.add(AGRI_STAR_ITEM);
                             e.add(FUNGICIDE_ITEM);
                             e.add(INSECTICIDE_ITEM);
                         })

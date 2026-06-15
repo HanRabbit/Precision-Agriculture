@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "precision-agriculture:soil_sensor",
+    "precision-agriculture:irrigator",
+    "precision-agriculture:fertilizer_machine",
+    "precision-agriculture:weather_station",
+    "precision-agriculture:agri_terminal",
+    "precision-agriculture:harvester",
+    "precision-agriculture:planter",
+    "precision-agriculture:pesticide_sprayer"
+  ]
+}

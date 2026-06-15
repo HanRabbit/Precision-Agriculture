@@ -1,5 +1,6 @@
 package han.hanstudio.precisionAgriculture.network;
 
+import han.hanstudio.precisionAgriculture.block.entity.FertilizerBlockEntity;
 import han.hanstudio.precisionAgriculture.block.entity.HarvesterBlockEntity;
 import han.hanstudio.precisionAgriculture.block.entity.IrrigatorBlockEntity;
 import han.hanstudio.precisionAgriculture.block.entity.PesticideSprayerBlockEntity;
@@ -24,10 +25,14 @@ public class ModNetworking {
         PayloadTypeRegistry.playS2C().register(SyncMachineStatusPayload.ID, SyncMachineStatusPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(OpenPesticideSprayerPayload.ID, OpenPesticideSprayerPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(SyncPesticideSprayerPayload.ID, SyncPesticideSprayerPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(OpenFertilizerPayload.ID, OpenFertilizerPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncFertilizerPayload.ID, SyncFertilizerPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(SetIrrigatorRangePayload.ID, SetIrrigatorRangePayload.CODEC);
         PayloadTypeRegistry.playC2S().register(SetMachineRangePayload.ID, SetMachineRangePayload.CODEC);
         PayloadTypeRegistry.playC2S().register(SetPesticideSprayerRangePayload.ID, SetPesticideSprayerRangePayload.CODEC);
         PayloadTypeRegistry.playC2S().register(PesticideSprayerSlotClickPayload.ID, PesticideSprayerSlotClickPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(SetFertilizerRangePayload.ID, SetFertilizerRangePayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(FertilizerSlotClickPayload.ID, FertilizerSlotClickPayload.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(SetIrrigatorRangePayload.ID, (payload, ctx) -> {
             BlockPos pos = payload.pos();
@@ -66,6 +71,26 @@ public class ModNetworking {
                 if (ctx.player().getBlockPos().getSquaredDistance(pos) > 64 * 64) return;
                 if (world.getBlockEntity(pos) instanceof PesticideSprayerBlockEntity be)
                     be.handleSlotClick(ctx.player(), payload.slot(), payload.button());
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(SetFertilizerRangePayload.ID, (payload, ctx) -> {
+            BlockPos pos = payload.pos();
+            ctx.server().execute(() -> {
+                ServerWorld world = ctx.player().getEntityWorld() instanceof ServerWorld sw ? sw : null;
+                if (world != null && world.getBlockEntity(pos) instanceof FertilizerBlockEntity be)
+                    be.setRange(payload.range());
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(FertilizerSlotClickPayload.ID, (payload, ctx) -> {
+            BlockPos pos = payload.pos();
+            ctx.server().execute(() -> {
+                ServerWorld world = ctx.player().getEntityWorld() instanceof ServerWorld sw ? sw : null;
+                if (world == null) return;
+                if (ctx.player().getBlockPos().getSquaredDistance(pos) > 64 * 64) return;
+                if (world.getBlockEntity(pos) instanceof FertilizerBlockEntity be)
+                    be.handleSlotClick(ctx.player(), payload.button());
             });
         });
     }

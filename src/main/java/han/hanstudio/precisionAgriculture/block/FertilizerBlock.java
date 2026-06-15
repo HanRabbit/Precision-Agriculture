@@ -7,6 +7,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -27,5 +32,22 @@ public class FertilizerBlock extends Block implements BlockEntityProvider {
         return type == ModBlockEntities.FERTILIZER
                 ? (w, p, s, be) -> FertilizerBlockEntity.tick(w, p, s, (FertilizerBlockEntity) be)
                 : null;
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (world.isClient()) return ActionResult.SUCCESS;
+        if (world.getBlockEntity(pos) instanceof FertilizerBlockEntity be) {
+            be.sendOpenPayload((ServerPlayerEntity) player);
+        }
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        if (world.getBlockEntity(pos) instanceof FertilizerBlockEntity be) {
+            be.dropContents();
+        }
+        super.onStateReplaced(state, world, pos, moved);
     }
 }
