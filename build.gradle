@@ -19,6 +19,25 @@ loom {
             sourceSet sourceSets.client
         }
     }
+
+    runs {
+        client {
+            client()
+            configName = "Minecraft Client"
+            ideConfigGenerated = true
+            runDir = "run"
+            // Add -XstartOnFirstThread only on macOS
+            if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+                vmArg "-XstartOnFirstThread"
+            }
+        }
+        server {
+            server()
+            configName = "Minecraft Server"
+            ideConfigGenerated = true
+            runDir = "run"
+        }
+    }
 }
 
 fabricApi {
