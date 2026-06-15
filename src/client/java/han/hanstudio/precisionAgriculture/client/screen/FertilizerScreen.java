@@ -49,7 +49,7 @@ public class FertilizerScreen extends Screen {
     }
 
     private void setRange(int r) {
-        range = Math.max(1, Math.min(5, r));
+        range = Math.clamp(r, 1, 5);
         ClientPlayNetworking.send(new SetFertilizerRangePayload(pos, range));
     }
 
