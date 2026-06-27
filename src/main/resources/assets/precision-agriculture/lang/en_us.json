@@ -17,5 +17,10 @@
   "item.precision-agriculture.insecticide": "Insecticide",
   "screen.precision-agriculture.soil_sensor": "Soil Sensor",
   "screen.precision-agriculture.weather_station": "Weather Station",
-  "screen.precision-agriculture.agri_terminal": "Agriculture Data Terminal"
+  "screen.precision-agriculture.agri_terminal": "Agriculture Data Terminal",
+  "screen.precision-agriculture.fertilizer_machine": "Fertilizer Machine",
+  "screen.precision-agriculture.harvester": "Auto Harvester",
+  "screen.precision-agriculture.planter": "Auto Planter",
+  "screen.precision-agriculture.irrigator": "Auto Irrigator",
+  "screen.precision-agriculture.pesticide_sprayer": "Auto Pesticide Sprayer"
 }
