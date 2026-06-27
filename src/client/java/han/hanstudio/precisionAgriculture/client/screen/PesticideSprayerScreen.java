@@ -25,7 +25,7 @@ public class PesticideSprayerScreen extends Screen {
     private int slot0X, slot1X, slotsY;
 
     public PesticideSprayerScreen(OpenPesticideSprayerPayload data) {
-        super(Text.literal("自动农药播撒机"));
+        super(Text.translatable("screen.precision-agriculture.pesticide_sprayer"));
         this.pos = data.pos();
         this.range = data.range();
         this.sprayedLast = data.sprayedLast();

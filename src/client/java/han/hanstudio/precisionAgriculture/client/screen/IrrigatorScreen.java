@@ -18,7 +18,7 @@ public class IrrigatorScreen extends Screen {
     private int x, y;
 
     public IrrigatorScreen(OpenIrrigatorPayload data) {
-        super(Text.literal("自动灌溉器"));
+        super(Text.translatable("screen.precision-agriculture.irrigator"));
         this.pos = data.pos();
         this.range = data.range();
     }

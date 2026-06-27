@@ -40,9 +40,9 @@ public class PlanterHandledScreen extends HandledScreen<PlanterScreenHandler> {
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         // 绘制标题（相对于GUI左上角的坐标）
-        context.drawText(textRenderer, title, this.titleX, this.titleY, 0x404040, false);
+        context.drawText(textRenderer, title, this.titleX, this.titleY, 0xFF404040, false);
         // 绘制玩家物品栏标题
-        context.drawText(textRenderer, playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, 0x404040, false);
+        context.drawText(textRenderer, playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, 0xFF404040, false);
     }
 
     @Override

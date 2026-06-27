@@ -71,12 +71,12 @@ public class AgriGuiTextures {
     public static final int HEALTH_MED = 0xCC8800;
     public static final int HEALTH_HIGH = 0x22AA22;
 
-    // 状态颜色
-    public static final int STATUS_ACTIVE = 0x44AA22;
-    public static final int STATUS_IDLE = 0x888888;
-    public static final int STATUS_ERROR = 0xCC2222;
+    // 状态颜色 (作为文本颜色直接使用，需带 0xFF Alpha)
+    public static final int STATUS_ACTIVE = 0xFF44AA22;
+    public static final int STATUS_IDLE = 0xFF888888;
+    public static final int STATUS_ERROR = 0xFFCC2222;
 
-    // 文本颜色
-    public static final int TEXT_COLOR = 0x404040;
-    public static final int TITLE_COLOR = 0xFFFFFF;
+    // 文本颜色 (必须带 0xFF Alpha 通道，否则在 1.20+ 中文本完全透明不显示)
+    public static final int TEXT_COLOR = 0xFF404040;
+    public static final int TITLE_COLOR = 0xFFFFFFFF;
 }

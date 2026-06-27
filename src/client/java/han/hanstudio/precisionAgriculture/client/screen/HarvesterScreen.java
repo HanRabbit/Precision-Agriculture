@@ -19,7 +19,7 @@ public class HarvesterScreen extends Screen {
     private int x, y;
 
     public HarvesterScreen(OpenHarvesterPayload data) {
-        super(Text.literal("自动收割机"));
+        super(Text.translatable("screen.precision-agriculture.harvester"));
         this.pos = data.pos();
         this.range = data.range();
         this.harvestedLast = data.harvestedLast();

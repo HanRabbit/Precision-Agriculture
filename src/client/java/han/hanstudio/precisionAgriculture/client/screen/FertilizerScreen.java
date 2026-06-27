@@ -24,7 +24,7 @@ public class FertilizerScreen extends Screen {
     private int slotX, slotY;
 
     public FertilizerScreen(OpenFertilizerPayload data) {
-        super(Text.literal("自动施肥机"));
+        super(Text.translatable("screen.precision-agriculture.fertilizer_machine"));
         this.pos = data.pos();
         this.range = data.range();
         this.fertilizedLast = data.fertilizedLast();

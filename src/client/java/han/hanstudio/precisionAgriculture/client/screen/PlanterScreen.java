@@ -19,7 +19,7 @@ public class PlanterScreen extends Screen {
     private int x, y;
 
     public PlanterScreen(OpenPlanterPayload data) {
-        super(Text.literal("自动播种机"));
+        super(Text.translatable("screen.precision-agriculture.planter"));
         this.pos = data.pos();
         this.range = data.range();
         this.plantedLast = data.plantedLast();
